@@ -1,10 +1,11 @@
+import Sidebar from "./components/Sidebar/Sidebar";
 
 const App = () => {
   return (
-    <div>
-      <h1 class="text-3xl font-bold underline">
-        Hello world!
-      </h1>
+    <div className="bg-gray-50">
+      <div class="min-h-screen flex flex-col lg:flex-row">
+        <Sidebar />
+      </div>
     </div>
   );
 };
