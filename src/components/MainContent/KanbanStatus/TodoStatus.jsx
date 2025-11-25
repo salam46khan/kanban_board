@@ -3,8 +3,9 @@ import TaskList from '../TaskList';
 import { tags } from '../../../utils';
 
 const TodoStatus = ({task, status}) => {
-    // console.log(task);
+    
     const [statusTask, setStatusTask] = useState(task)
+
     const [isOpenSort, setIsOpenSort] = useState(false)
     const [isOpenFilter, setIsOpenFilter] = useState(false)
 
@@ -24,22 +25,20 @@ const TodoStatus = ({task, status}) => {
         setIsOpenSort(false)
     }
 
-    const handleFilter = (tag) =>{
-        console.log(tag);
-        // if(tag === "all"){
-        //     setStatusTask(task)
-        // }else{
-        //     const filterTask = statusTask.filter(t => t.tag.toLowerCase() === tag.toLowerCase())
-        //     setStatusTask(filterTask)
-        // }
-        const filterTask = statusTask.filter(t => t.tag.toLowerCase() === tag.toLowerCase())
-        setStatusTask(filterTask)
-        
-        setIsOpenFilter(false)
-    }
+    const handleFilter = (tag) => {
+        const filtered = task.filter(
+            t => t.tag.toLowerCase() === tag.toLowerCase()
+        );
 
-    console.log(statusTask);
-    
+        if (filtered.length === 0) {
+            setStatusTask([]);
+        } else {
+            setStatusTask(filtered);
+        }
+
+        setIsOpenFilter(false);
+    };
+
     
     return (
         <div className="flex-1 flex flex-col min-w-0 w-full">
