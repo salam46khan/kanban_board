@@ -25,7 +25,7 @@ const MainContent = () => {
                     openModal && <AddTaskModal onAddTask={handleAddingTask} onClose={()=>setOpenModel(false)}/>
                 }
             
-            <KanbanBoard/>
+            <KanbanBoard tasks={tasks}/>
         </main>
     );
 };

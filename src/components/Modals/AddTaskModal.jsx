@@ -8,7 +8,9 @@ const AddTaskModal = ({onClose, onAddTask}) => {
         date: "",
         status: "To-do"
     })
+    const [err, setErr] = useState('')
     const handleChange = (e) => {
+        setErr('')
         setFormData(task =>({
             ...task,
             [e.target.name] : e.target.value
@@ -17,10 +19,17 @@ const AddTaskModal = ({onClose, onAddTask}) => {
 
     const handleAddTask = (e) =>{
         e.preventDefault()
+        setErr('')
+        if(formData.title.length < 1 || formData.description.length < 1 || formData.date.length < 1){
+            setErr("The input field is not filled in, please fill it in.")
+            return
+        }
+        
         const newTask = {
             id: crypto.randomUUID(),
             ...formData
         };
+
         onAddTask(newTask)
         onClose()
     }
@@ -38,12 +47,12 @@ const AddTaskModal = ({onClose, onAddTask}) => {
                                 className="w-4 h-4"
                                 fill="none"
                                 stroke="currentColor"
-                                stroke-width="1.5"
+                                strokeWidth="1.5"
                                 viewBox="0 0 24 24"
                             >
                                 <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
                                     d="M15.75 19.5L8.25 12l7.5-7.5"
                                 ></path>
                             </svg>
@@ -66,7 +75,7 @@ const AddTaskModal = ({onClose, onAddTask}) => {
                         <div className="grid grid-cols-1 gap-6">
                             <div>
                                 <label
-                                    for="title"
+                                    htmlFor="title"
                                     className="block text-sm font-medium text-gray-700"
                                     >Task Title</label
                                 >
@@ -84,7 +93,7 @@ const AddTaskModal = ({onClose, onAddTask}) => {
 
                             <div>
                                 <label
-                                    for="description"
+                                    htmlFor="description"
                                     className="block text-sm font-medium text-gray-700"
                                     >Task Subtitle / Description</label
                                 >
@@ -93,6 +102,7 @@ const AddTaskModal = ({onClose, onAddTask}) => {
                                     value={formData.description}
                                     onChange={handleChange}
                                     id='description'
+                                    required
                                     placeholder="Add context or acceptance criteria"
                                     className="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 text-sm text-gray-900 placeholder:text-gray-400 focus:border-gray-900 focus:outline-none"
                                 />
@@ -102,7 +112,7 @@ const AddTaskModal = ({onClose, onAddTask}) => {
                         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                             <div>
                                 <label
-                                    for="tag"
+                                    htmlFor="tag"
                                     className="block text-sm font-medium text-gray-700"
                                     >Tag</label
                                 >
@@ -131,7 +141,7 @@ const AddTaskModal = ({onClose, onAddTask}) => {
 
                             <div>
                                 <label
-                                    for="date"
+                                    htmlFor="date"
                                     className="block text-sm font-medium text-gray-700"
                                     >Due Date</label
                                 >
@@ -141,13 +151,14 @@ const AddTaskModal = ({onClose, onAddTask}) => {
                                     name="date"
                                     value={formData.date}
                                     onChange={handleChange}
+                                    required
                                     className="mt-2 w-full rounded-xl border border-gray-200 px-4 py-3 text-sm text-gray-900 focus:border-gray-900 focus:outline-none"
                                 />
                             </div>
 
                             <div>
                                 <label
-                                    for="status"
+                                    htmlFor="status"
                                     className="block text-sm font-medium text-gray-700"
                                     >Status</label
                                 >
@@ -165,7 +176,10 @@ const AddTaskModal = ({onClose, onAddTask}) => {
                             </div>
                         </div>
 
-                        <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
+                        <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-end">
+                            {
+                                err && <p className='mr-auto text-red-400'>{err}</p>
+                            }
                             <button
                                 onClick={onClose}
                                 className="inline-flex items-center justify-center rounded-xl border border-gray-200 px-4 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50"
