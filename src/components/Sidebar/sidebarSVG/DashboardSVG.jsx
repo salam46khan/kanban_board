@@ -9,9 +9,9 @@ const DashboardSVG = () => {
             viewBox="0 0 24 24"
         >
             <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M9 3v12m6-12v12M3 9h18"
             ></path>
         </svg>
