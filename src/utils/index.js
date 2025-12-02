@@ -8,4 +8,5 @@ export const tags = [
   "setup",
   "infrastructure",
   "documentation",
+  "all"
 ];

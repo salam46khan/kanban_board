@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { TaskProvider } from '../../Context';
 
-const AddTaskModal = ({onClose, onAddTask}) => {
+const AddTaskModal = ({onClose}) => {
+    const {tasks,setTasks} = useContext(TaskProvider)
+
     const [formData, setFormData] = useState({
         title: "",
         description: "",
@@ -30,7 +33,7 @@ const AddTaskModal = ({onClose, onAddTask}) => {
             ...formData
         };
 
-        onAddTask(newTask)
+        setTasks([...tasks, newTask])
         onClose()
     }
     
@@ -169,9 +172,9 @@ const AddTaskModal = ({onClose, onAddTask}) => {
                                     onChange={handleChange}
                                     className="mt-2 w-full rounded-xl border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 focus:border-gray-900 focus:outline-none"
                                 >
-                                    <option value="todo">To-do</option>
-                                    <option value="in-progress">In Progress</option>
-                                    <option value="done">Done</option>
+                                    <option value="To-do">To-do</option>
+                                    <option value="In Progress">In Progress</option>
+                                    <option value="Done">Done</option>
                                 </select>
                             </div>
                         </div>

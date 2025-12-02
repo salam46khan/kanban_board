@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import TaskList from '../TaskList';
 import { tags } from '../../../utils';
 
-const TodoStatus = ({task, status}) => {
-    
+const TodoStatus = ({task}) => {
+
     const [statusTask, setStatusTask] = useState(task)
 
     const [isOpenSort, setIsOpenSort] = useState(false)
@@ -13,10 +13,9 @@ const TodoStatus = ({task, status}) => {
         const sorted = [...statusTask].sort((a, b) => {
             const dateA = new Date(a.date);
             const dateB = new Date(b.date);
-            console.log(dateA, dateB);
             
             const newData = order === "asc" ? dateB - dateA : dateA - dateB; 
-            console.log("===",newData, "=");
+            
             return newData
         });
 
@@ -30,7 +29,9 @@ const TodoStatus = ({task, status}) => {
             t => t.tag.toLowerCase() === tag.toLowerCase()
         );
 
-        if (filtered.length === 0) {
+        if(tag === 'all'){
+            setStatusTask(task)
+        }else if (filtered.length === 0) {
             setStatusTask([]);
         } else {
             setStatusTask(filtered);
@@ -47,7 +48,8 @@ const TodoStatus = ({task, status}) => {
                     <h2
                         className="text-lg font-semibold text-gray-900"
                     >
-                        {status}
+                        {/* {task.status === "To-do" && "To do"} */}
+                        section 
                     </h2>
                     <span
                         className="text-sm font-medium text-gray-500 bg-gray-100 px-2.5 py-1 rounded-full"
